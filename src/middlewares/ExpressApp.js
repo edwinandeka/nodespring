@@ -66,13 +66,7 @@ export default class ExpressApp extends NodeSpringApp {
     this.expressApp = express()
 
     if(this.config.https) {
-      let options = {
-        key: this.config.https.key,
-        cert: this.config.https.cert,
-        ca: this.config.https.ca
-      }
-
-      this.server = https.createServer(options, this.expressApp)
+      this.server = https.createServer(this.config.https, this.expressApp)
     } else {
       this.server = http.createServer(this.expressApp)
     }
