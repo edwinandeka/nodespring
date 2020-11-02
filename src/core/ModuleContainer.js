@@ -10,7 +10,7 @@
 
 import fs from 'fs'
 import path_module from 'path'
-import NodeSpringUtil from './NodeSpringUtil'
+import nodeSpringUtil from './nodeSpringUtil'
 import NodeSpringException from '../exceptions/NodeSpringException'
 
 global.modulesContainer = {}
@@ -27,9 +27,9 @@ export default class ModuleContainer {
   }
 
   static init(appDir, nodeSpringApp, implConfig, logging = false, loggingSync = false, debugging = false) {
-    NodeSpringUtil.logging = logging
-    NodeSpringUtil.configureLoggingOut(loggingSync)
-    NodeSpringUtil.debugging = debugging
+    nodeSpringUtil.logging = logging
+    nodeSpringUtil.configureLoggingOut(loggingSync)
+    nodeSpringUtil.debugging = debugging
 
     ModuleContainer.appDir = appDir
     ModuleContainer.implConfig = implConfig
@@ -93,7 +93,7 @@ export default class ModuleContainer {
       let fn = moduleInfo.impl[methodInfo.methodName]
 
       ModuleContainer.nodeSpringApp.getRequestParams(req, (params) => {
-        let fullParams = NodeSpringUtil.getArgs(fn).map((item, index) => {
+        let fullParams = nodeSpringUtil.getArgs(fn).map((item, index) => {
           return params[item] || (params[item + '[]'] instanceof Array ? params[item + '[]'] : [params[item + '[]']])
         })
 
@@ -188,17 +188,17 @@ export default class ModuleContainer {
         let errorMessage = `The method "${methodName}" declared in ${type.packagePath} is not implemented in ${impl.name}`
         let methodNotImplemented = new NodeSpringException(errorMessage, ModuleContainer.addImplementation, 1)
 
-        NodeSpringUtil.throwNodeSpringException(methodNotImplemented)
+        nodeSpringUtil.throwNodeSpringException(methodNotImplemented)
       } else {
-        NodeSpringUtil.getArgs(type.prototype[methodName]).forEach((param) => {
-          let implMethodParams = NodeSpringUtil.getArgs(impl.prototype[methodName])
+        nodeSpringUtil.getArgs(type.prototype[methodName]).forEach((param) => {
+          let implMethodParams = nodeSpringUtil.getArgs(impl.prototype[methodName])
           let isParamPresent = implMethodParams.indexOf(param) >= 0
 
           if (!isParamPresent) {
             let errorMessage = `The param "${param}" declared in ${type.packagePath}.${methodName}(...) is not present in ${impl.name}.${methodName}(...)`
             let missingParam = new NodeSpringException(errorMessage, ModuleContainer.addImplementation, 1)
 
-            NodeSpringUtil.throwNodeSpringException(missingParam)
+            nodeSpringUtil.throwNodeSpringException(missingParam)
           }
         })
       }
@@ -270,7 +270,7 @@ export default class ModuleContainer {
           // Resolve the complete instance to the modules which are waiting for it
           resolve(mainInstance)
         }).catch((err) => {
-          NodeSpringUtil.error('Error resolving instance for', type, err)
+          nodeSpringUtil.error('Error resolving instance for', type, err)
           reject(err)
         })
       })

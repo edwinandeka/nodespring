@@ -4,14 +4,14 @@
  */
 
 import ModuleContainer from '../core/ModuleContainer'
-import NodeSpringUtil from '../core/NodeSpringUtil'
+import nodeSpringUtil from '../core/nodeSpringUtil'
 import NodeSpringException from '../exceptions/NodeSpringException'
 import path from 'path'
 
 
 export function Get() {
 
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
   let options = {
     contentType: 'text/html'
   }
@@ -47,7 +47,7 @@ export function Get() {
 
 export function Post() {
 
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
   let options = {
     contentType: 'text/html'
   }

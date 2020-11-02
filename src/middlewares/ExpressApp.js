@@ -4,7 +4,7 @@
  */
 
 import NodeSpringApp from '../core/NodeSpringApp'
-import NodeSpringUtil from '../core/NodeSpringUtil'
+import nodeSpringUtil from '../core/nodeSpringUtil'
 import express from 'express'
 import cluster from 'cluster'
 import sticky from 'sticky-session'

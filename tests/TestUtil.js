@@ -3,7 +3,7 @@
  */
 
 import ModuleContainer from '../src/core/ModuleContainer'
-import NodeSpringUtil from '../src/core/NodeSpringUtil'
+import nodeSpringUtil from '../src/core/nodeSpringUtil'
 import clc from 'cli-color'
 import fs from 'fs'
 import path from 'path'
@@ -26,8 +26,8 @@ export default class TestUtil {
     global.NodeSpringConfig.printExceptions = false
 
     ModuleContainer.init(__dirname, options.nodeSpringApp, options.implConfig || {})
-    NodeSpringUtil.logging = true
-    NodeSpringUtil.debugging = true
+    nodeSpringUtil.logging = true
+    nodeSpringUtil.debugging = true
 
     if (options.description)
       console.log(clc.blue.bold(options.description))

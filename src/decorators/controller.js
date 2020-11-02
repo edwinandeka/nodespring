@@ -4,13 +4,13 @@
  */
 
 import ModuleContainer from '../core/ModuleContainer'
-import NodeSpringUtil from '../core/NodeSpringUtil'
+import nodeSpringUtil from '../core/nodeSpringUtil'
 import path from 'path'
 
 
 export function Controller() {
 
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
 
   let args = arguments[0]
   let options = {}
@@ -23,7 +23,7 @@ export function Controller() {
     ModuleContainer.addController(target, options.path || target.name, options.namespace || target.name)
   }
 
-  if(arguments.length === 0 || (arguments.length === 1 && !NodeSpringUtil.isClass(arguments[0]))) {
+  if(arguments.length === 0 || (arguments.length === 1 && !nodeSpringUtil.isClass(arguments[0]))) {
     options = arguments[0] || {}
     return addModule
   } else {

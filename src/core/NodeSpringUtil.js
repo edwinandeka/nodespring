@@ -1,12 +1,12 @@
 /**
- * NodeSpringUtil
+ * nodeSpringUtil
  * @author calbertts
  */
 
 import fs from 'fs'
 import util from 'util'
 
-export default class NodeSpringUtil {
+export default class nodeSpringUtil {
 
   static logging = false
   static loggingSync = false
@@ -40,9 +40,9 @@ export default class NodeSpringUtil {
    * This is pretty useful to see a synchronous log
    */
   static configureLoggingOut(loggingSync) {
-    NodeSpringUtil.loggingSync = loggingSync
+    nodeSpringUtil.loggingSync = loggingSync
 
-    if(NodeSpringUtil.loggingSync)
+    if(nodeSpringUtil.loggingSync)
     {
       let logFile = fs.createWriteStream('nodespring.log', { flags: 'w' })
       let logStdout = process.stdout
@@ -56,17 +56,17 @@ export default class NodeSpringUtil {
   }
 
   static log() {
-    if(NodeSpringUtil.logging)
+    if(nodeSpringUtil.logging)
       console.log.apply(this, arguments)
   }
 
   static error() {
-    if(NodeSpringUtil.logging)
+    if(nodeSpringUtil.logging)
       console.error.apply(this, arguments)
   }
 
   static debug() {
-    if(NodeSpringUtil.debugging) {
+    if(nodeSpringUtil.debugging) {
       console.log.apply(this, arguments)
     }
   }

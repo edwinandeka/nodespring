@@ -6,7 +6,7 @@
 import ModuleContainer from '../core/ModuleContainer'
 import path from 'path'
 import Abstract from '../core/Abstract'
-import NodeSpringUtil from '../core/NodeSpringUtil'
+import nodeSpringUtil from '../core/nodeSpringUtil'
 import NodeSpringException from '../exceptions/NodeSpringException'
 import util from 'util'
 
@@ -31,11 +31,11 @@ export var Scope = {
  * @constructor
  */
 export function Inject(typeToInject) {
-  if(!typeToInject || !NodeSpringUtil.isClass(typeToInject)) {
+  if(!typeToInject || !nodeSpringUtil.isClass(typeToInject)) {
     throw new NodeSpringException('@Inject expects an Interface but an ' + typeToInject + ' was received.', this, 2)
   }
 
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
 
   return (target, property, descriptor) => {
     let packagePath = basePackagePath + '/' + target.constructor.name
@@ -45,11 +45,11 @@ export function Inject(typeToInject) {
     let targetName = global.implContext ? global.implContext.packagePath : packagePath
     let preConfiguredImpl = ModuleContainer.implConfig[targetName]
 
-    //NodeSpringUtil.debug('inject:', targetName)
+    //nodeSpringUtil.debug('inject:', targetName)
 
     if(preConfiguredImpl) {
       if(path.basename(packagePath) !== path.basename(preConfiguredImpl)) {
-        NodeSpringUtil.error('Ignored implementation from @Inject ' + packagePath)
+        nodeSpringUtil.error('Ignored implementation from @Inject ' + packagePath)
         return
       }
     }
@@ -71,7 +71,7 @@ export function Inject(typeToInject) {
  * @constructor
  */
 export function Implements(type, scope = Scope.SINGLETON) {
-  if(!type || !NodeSpringUtil.isClass(type)) {
+  if(!type || !nodeSpringUtil.isClass(type)) {
     throw new NodeSpringException('@Implements expects a Class but an ' + type + ' was received.', this, 2)
   }
 
@@ -93,7 +93,7 @@ export function Implements(type, scope = Scope.SINGLETON) {
 
     if(preConfiguredImpl) {
       if(target.name !== path.basename(preConfiguredImpl)) {
-        NodeSpringUtil.error('Ignored implementation from @Implements ' + target.name)
+        nodeSpringUtil.error('Ignored implementation from @Implements ' + target.name)
         return
       }
     }
@@ -110,11 +110,11 @@ export function Implements(type, scope = Scope.SINGLETON) {
  * @constructor
  */
 export function Interface(interfaceBase) {
-  if(!interfaceBase || !NodeSpringUtil.isClass(interfaceBase)) {
+  if(!interfaceBase || !nodeSpringUtil.isClass(interfaceBase)) {
     throw new NodeSpringException('@Interface expects a Class but an ' + interfaceBase + ' was received.', this, 2)
   }
 
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
   let packagePath = basePackagePath + '/' + interfaceBase.name
 
   ModuleContainer.addInterface(packagePath)
@@ -160,7 +160,7 @@ export function Interface(interfaceBase) {
  * @constructor
  */
 export function PostInject(target, property, descriptor) {
-  let basePackagePath = path.dirname(NodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
+  let basePackagePath = path.dirname(nodeSpringUtil.getStack().replace(ModuleContainer.appDir, '').replace('.js', ''))
   let packagePath = basePackagePath + '/' + target.constructor.name
   let targetName = global.implContext ? global.implContext.packagePath : packagePath
 

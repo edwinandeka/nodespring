@@ -5,7 +5,7 @@
 
 import ModuleContainer from './ModuleContainer'
 import Abstract from './Abstract'
-import NodeSpringUtil from './NodeSpringUtil'
+import nodeSpringUtil from './nodeSpringUtil'
 import NodeSpringException from '../exceptions/NodeSpringException'
 
 
@@ -36,17 +36,17 @@ export default class NodeSpringApp extends Abstract {
       if(this[methodName] === undefined) {
         let noImplementedMethod = new NodeSpringException('The method ' + methodName + ' must be implemented on ' + this.__proto__.__proto__.constructor.name)
 
-        NodeSpringUtil.throwNodeSpringException(noImplementedMethod)
+        nodeSpringUtil.throwNodeSpringException(noImplementedMethod)
       } else {
         let methodParams = requiredMethods[methodName]
 
         // Check the parameters
-        let implementedMethodParams = NodeSpringUtil.getArgs(this[methodName])
+        let implementedMethodParams = nodeSpringUtil.getArgs(this[methodName])
 
         methodParams.forEach((officialParam) => {
           if(implementedMethodParams.indexOf(officialParam) < 0) {
             let missingParameter = new NodeSpringException('The parameter "' + officialParam + '" is not present on the implemented method "' + methodName + '(...)" in the class ' + this.__proto__.__proto__.constructor.name, undefined, 6)
-            NodeSpringUtil.throwNodeSpringException(missingParameter)
+            nodeSpringUtil.throwNodeSpringException(missingParameter)
           }
         })
       }
